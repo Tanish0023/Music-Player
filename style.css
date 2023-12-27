@@ -1,0 +1,290 @@
+@import url("https://fonts.googleapis.com/css2?family=Varela+Round&display=swap");
+
+/* 
+***************************************************************************
+**                                COLOR                                  **
+***************************************************************************
+*/
+:root {
+  --body-color: antiquewhite;
+  --main-bg-color-white: white;
+  --border-hover-grey: grey;
+  --hover-black: black;
+}
+
+/* 
+***************************************************************************
+**                                COMMON                                 **
+***************************************************************************
+*/
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--body-color);
+}
+
+nav {
+  font-family: "Varela Round", sans-serif;
+}
+
+.main-container {
+  height: 2000vh;
+}
+
+/* 
+***************************************************************************
+**                          TOP NAVIGATION BAR                           **
+***************************************************************************
+*/
+
+.navbar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: sticky;
+  top: 0;
+}
+
+.left-nav {
+  width: 50%;
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  width: 20%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.logo img {
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  border: 3px solid whitesmoke;
+}
+
+.left-nav li {
+  list-style: none;
+  padding: 20px;
+}
+
+.left-nav li a:hover {
+  color: var(--border-hover-grey);
+}
+
+.left-nav li a {
+  text-decoration: none;
+  color: var(--main-bg-color-white);
+}
+
+.right-nav {
+  width: 50%;
+  padding: 0px 20px;
+  text-align: right;
+}
+
+#top-search {
+  padding: 5px;
+  font-size: 17px;
+  border: 2px solid var(--border-hover-grey);
+  border-radius: 12px;
+  vertical-align: middle;
+}
+
+.btn-search {
+  font-size: 16px;
+  padding: 6px;
+  border: 2px solid var(--main-bg-color-white);
+  border-radius: 8px;
+  margin: 10px 15px 10px 0px;
+  background: none;
+  color: var(--main-bg-color-white);
+  cursor: pointer;
+  vertical-align: middle;
+}
+
+.btn-search:hover {
+  background-color: var(--main-bg-color-white);
+  color: var(--hover-black);
+}
+
+.background {
+  background: rgba(0, 0, 0, 0.7);
+}
+
+/* 
+***************************************************************************
+**                              BODY CONTAINER                             **
+***************************************************************************
+*/
+
+.main-container {
+  height: 100vh;
+}
+
+.body-container {
+  height: 82.2%;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.genre-selecter {
+  padding: 1px;
+}
+
+.music-finder {
+  background-color: red;
+  width: 25%;
+  height: 650px;
+  padding: 20px;
+}
+
+#song-list {
+  padding: 10px;
+  width: 100%;
+  margin: auto;
+}
+
+.song-name-left {
+  max-width: 20ch;
+  overflow: hidden;
+  font-size: large;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.song-data {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 7px 10px;
+  gap: 10px;
+  overflow: hidden;
+}
+
+.song-cover-sm {
+  height: 25px;
+  width: 25px;
+  border-radius: 20px;
+}
+
+.song-data-left {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-right: 0;
+}
+
+.songPlayBtn-sm {
+  font-size: 25px;
+  cursor: pointer;
+}
+
+.music-display {
+  background-color: red;
+  width: 40%;
+  height: 650px;
+  padding: 20px;
+}
+
+#song-cover {
+  font-size: 70px;
+}
+
+#song-cover img {
+  width: 600px;
+  height: auto;
+  max-height: 500px;
+}
+
+.music-playlist {
+  background-color: red;
+  width: 25%;
+  height: 650px;
+  padding: 20px;
+}
+
+#song-name p {
+  font-size: 40px;
+  font-weight: 800;
+  font-family: "Varela Round", sans-serif;
+}
+
+#artist-name p {
+  font-size: 20px;
+  font-weight: 500;
+  font-family: "Varela Round", sans-serif;
+}
+
+/* 
+***************************************************************************
+**                                 FOOTER                                **
+***************************************************************************
+*/
+
+footer {
+  background-color: black;
+  width: 100%;
+  height: 80px;
+}
+
+.music-player {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: sticky;
+  bottom: 0;
+  flex-direction: column;
+  gap: 5px;
+  color: white;
+}
+
+#songProgressBar {
+  width: 70%;
+  color: blue;
+  cursor: pointer;
+}
+
+.control-icons {
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+#music-play-gif-container {
+  position: absolute;
+  left: 15%;
+  padding: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+#music-play-gif-container img {
+  width: 42px;
+
+  transition: opacity 0.3s ease-in;
+  opacity: 0;
+}
+
+#bottom-duration {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  right: 15%;
+}

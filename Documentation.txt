@@ -1,0 +1,40 @@
+************************************************ SECTIONS **************************************************
+
+Major ---> 1) All Songs -> Display All the songs according to genre selected 
+	   2) Song Card -> Display song card with image, name of song, name of artist
+	   3) Playlist -> Display all the playlist created and option to create new pplaylist
+	   4) Toogle theme -> Change between dark and light theme	
+
+
+
+********************************************* FUNCTIONALITIES **********************************************
+
+1) Array of all the songs
+2) toogleTheme()
+3) songs section -> showSong() -> render song depending on the genre and if no genre is selected all songs
+4) Song Card -> next,previos and add to playlist (button)
+5) renderCurrentSong() -> to display song info in song card and play it
+6) addtoPlaylist() -> do what name says
+7) createPlaylist() -> linked with the button create playlist
+8) renderPlaylistSong() -> Display songs present in playlist
+
+
+***************************************** ADDITIONAL FUNCTIONS *********************************************
+
+1) Create search bar -> It should able to search playlist and songs
+2) option to remove song from a playlist
+
+
+ARRAYS -> 1) allSongsArr[]
+	  2) 
+
+FUNCTIONS -> 1) toogleTheme() 
+             2) showSong() 
+	     3) renderCurrentSong() 
+	     4) addtoPlaylist() 
+             5) createPlaylist()
+	     6) renderPlaylistSong()
+
+
+
+	

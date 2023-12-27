@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Music Player App</title>
+  </head>
+  <body>
+    <div class="main-container">
+      <nav class="navbar background">
+        <ul class="left-nav">
+          <div class="logo"><img src="util/logo.png" alt="logo" /></div>
+          <li><a href="#home">Home</a></li>
+          <li><a href="#about">About</a></li>
+        </ul>
+
+        <div class="right-nav">
+          <input
+            type="text"
+            name="search"
+            id="top-search"
+            value=""
+            placeholder="Search genre, song..."
+            required
+          />
+          <button
+            type="button"
+            class="btn-search"
+            title="Search"
+            id="top-btn-search"
+          >
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </button>
+        </div>
+      </nav>
+
+      <div class="body-container">
+        <!-- -->
+        <div class="music-finder">
+          <div class="genre-selecter">
+            <label for="genre-select">Select music genre:</label>
+            <select
+              name="genreSelect"
+              id="genre-select"
+              onclick="getOption()"
+            ></select>
+          </div>
+
+          <div id="song-list"></div>
+        </div>
+        <!--  -->
+
+        <!--  -->
+        <div class="music-display">
+          <div id="song-cover">PLAY ANY SONG :)</div>
+          <div id="song-name"></div>
+          <div id="artist-name"></div>
+          <div id="addto-playlist-btn"></div>
+        </div>
+        <!--  -->
+
+        <!--  -->
+        <div class="music-playlist"></div>
+      </div>
+      <!--  -->
+
+      <!--  -->
+      <footer class="music-player">
+        <input
+          type="range"
+          name="range"
+          id="songProgressBar"
+          value="0"
+          min="0"
+          max="100"
+        />
+        <div id="duration" style="color: white"></div>
+        <div class="control-icons">
+          <i class="fa-solid fa-2x fa-step-backward" id="bottom-backward"></i>
+          <i class="fa-solid fa-2x fa-circle-play" id="masterplay"></i>
+          <i class="fa-solid fa-2x fa-step-forward" id="bottom-forward"></i>
+        </div>
+        <div id="music-play-gif-container">
+          <img src="util/playing.gif" alt="Gif" id="music-play-gif" />
+          <p id="music-play-gif-songname"></p>
+        </div>
+        <div id="bottom-duration"></div>
+      </footer>
+    </div>
+
+    <script src="script.js"></script>
+    <script
+      src="https://kit.fontawesome.com/72baf1e4bf.js"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
