@@ -7,11 +7,11 @@
         "songPath":"./util/Music/Hip Hop/song/1.mp3",
         "duration": 267},
         {"id":2,
-        "songName":"WuShang Clan",
-        "artistName": "Arpit, Dank Rishu",
+        "songName":"Excuses",
+        "artistName": "AP Dhillon",
         "songCover": "./util/Music/Hip Hop/images/2.jpg",
         "songPath":"./util/Music/Hip Hop/song/2.mp3",
-        "duration": 195}
+        "duration": 176}
         ],
 
     "pop":[
@@ -38,7 +38,13 @@
         "artistName": "Usama Ali",
         "songCover": "./util/Music/Pop/images/4.jpg",
         "songPath":"./util/Music/Pop/song/4.mp3",
-        "duration": 263}
+        "duration": 263},
+        {"id":5,
+        "songName":"Shape of You",
+        "artistName": "Ed Sheeran",
+        "songCover": "./util/Music/Pop/images/5.jpeg",
+        "songPath":"./util/Music/Pop/song/5.mp3",
+        "duration": 240}
         ],
     "worship":[
         {"id":1,

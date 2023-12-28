@@ -10,28 +10,40 @@
     <div class="main-container">
       <nav class="navbar background">
         <ul class="left-nav">
-          <div class="logo"><img src="util/logo.png" alt="logo" /></div>
-          <li><a href="#home">Home</a></li>
-          <li><a href="#about">About</a></li>
+          <div class="logo">
+            <img src="util/logo.png" alt="logo" />Music Player App
+          </div>
+          <!-- <li><a href="#home">Home</a></li>
+          <li><a href="#about">About</a></li> -->
         </ul>
 
         <div class="right-nav">
-          <input
-            type="text"
-            name="search"
-            id="top-search"
-            value=""
-            placeholder="Search genre, song..."
-            required
-          />
-          <button
-            type="button"
-            class="btn-search"
-            title="Search"
-            id="top-btn-search"
-          >
-            <i class="fa-solid fa-magnifying-glass"></i>
-          </button>
+          <label class="switch">
+            <input
+              type="checkbox"
+              id="toggletheme"
+              onclick="toggleTheme(this)"
+            />
+            <span class="slider round"></span>
+          </label>
+          <div>
+            <input
+              type="text"
+              name="search"
+              id="top-search"
+              value=""
+              placeholder="Search genre, song..."
+              required
+            />
+            <button
+              type="button"
+              class="btn-search"
+              title="Search"
+              id="top-btn-search"
+            >
+              <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+          </div>
         </div>
       </nav>
 
@@ -54,14 +66,37 @@
         <!--  -->
         <div class="music-display">
           <div id="song-cover">PLAY ANY SONG :)</div>
-          <div id="song-name"></div>
-          <div id="artist-name"></div>
-          <div id="addto-playlist-btn"></div>
+          <div>
+            <div id="song-name"></div>
+            <div id="artist-name"></div>
+          </div>
+          <div id="add-to-playlist-btn"></div>
         </div>
         <!--  -->
 
         <!--  -->
-        <div class="music-playlist"></div>
+        <div class="music-playlist">
+          <div id="create-playlist">
+            <input
+              type="text"
+              name="playlist-create"
+              id="playlist-create"
+              value=""
+              placeholder="Create Playlist"
+              required
+            />
+            <button
+              type="button"
+              class="btn-search-playlist"
+              title="Search"
+              id="playlist-create-btn"
+            >
+              Create
+            </button>
+          </div>
+          <div id="current-playlist"></div>
+          <div id="my-playlist"></div>
+        </div>
       </div>
       <!--  -->
 

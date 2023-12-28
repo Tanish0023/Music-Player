@@ -10,6 +10,9 @@
   --main-bg-color-white: white;
   --border-hover-grey: grey;
   --hover-black: black;
+  --background-div: rgba(94, 245, 142, 0.7);
+  --create-btn: rgba(4, 63, 22, 0.7);
+  --text-color: white;
 }
 
 /* 
@@ -56,18 +59,20 @@ nav {
 }
 
 .logo {
-  width: 20%;
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
+  gap: 10px;
+  color: var(--text-color);
 }
 
 .logo img {
-  height: 50px;
-  width: 50px;
+  height: 40px;
+  width: 40px;
   border-radius: 50%;
-  border: 3px solid whitesmoke;
+  border: 3px solid var(--text-color);
+  margin-left: 20px;
 }
 
 .left-nav li {
@@ -88,6 +93,11 @@ nav {
   width: 50%;
   padding: 0px 20px;
   text-align: right;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 50px;
+  /* margin-right: 40px; */
 }
 
 #top-search {
@@ -140,13 +150,24 @@ nav {
 
 .genre-selecter {
   padding: 1px;
+  color: var(--hover-black);
+}
+
+#genre-select {
+  padding: 5px;
+  border-radius: 10px;
 }
 
 .music-finder {
-  background-color: red;
+  background-color: var(--background-div);
   width: 25%;
   height: 650px;
   padding: 20px;
+}
+
+.music-finder label {
+  font-size: 20px;
+  padding: 10px;
 }
 
 #song-list {
@@ -164,6 +185,8 @@ nav {
 }
 
 .song-data {
+  background-color: var(--main-bg-color-white);
+  border-radius: 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -192,24 +215,36 @@ nav {
 }
 
 .music-display {
-  background-color: red;
+  background-color: var(--background-div);
   width: 40%;
   height: 650px;
   padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
 }
 
 #song-cover {
   font-size: 70px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  object-fit: contain;
+  margin-bottom: 20px;
+  color: var(--hover-black);
 }
 
 #song-cover img {
   width: 600px;
-  height: auto;
-  max-height: 500px;
+  height: 450px;
+  border: 5px solid var(--text-color);
+  border-radius: 50px;
+  /* max-height: 450px; */
 }
 
 .music-playlist {
-  background-color: red;
+  background-color: var(--background-div);
   width: 25%;
   height: 650px;
   padding: 20px;
@@ -219,12 +254,97 @@ nav {
   font-size: 40px;
   font-weight: 800;
   font-family: "Varela Round", sans-serif;
+  color: var(--hover-black);
 }
 
 #artist-name p {
   font-size: 20px;
   font-weight: 500;
   font-family: "Varela Round", sans-serif;
+  color: var(--hover-black);
+}
+
+#add-to-playlist-btn {
+  width: 100%;
+}
+
+#add-to-playlist-btn button {
+  font-size: 15px;
+  padding: 7px;
+  border: 2px solid var(--hover-black);
+  border-radius: 15px;
+}
+
+#playlist-create {
+  padding: 5px;
+  font-size: 17px;
+  border: 2px solid var(--border-hover-grey);
+  border-radius: 12px;
+  vertical-align: middle;
+}
+
+.btn-search-playlist {
+  font-size: 16px;
+  padding: 6px;
+  border: 2px solid var(--main-bg-color-white);
+  border-radius: 8px;
+  margin: 10px 15px 10px 0px;
+  background: var(--create-btn);
+  color: var(--main-bg-color-white);
+  cursor: pointer;
+  vertical-align: middle;
+}
+
+.btn-search-playlist:hover {
+  background: var(--background-div);
+}
+
+#current-playlist {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+#current-playlist p {
+  font-size: 20px;
+  margin: 20px;
+  color: var(--hover-black);
+}
+
+#current-playlist button {
+  font-size: 15px;
+  padding: 7px;
+  border-radius: 25px;
+  width: 250px;
+  margin: 5px;
+  cursor: pointer;
+}
+
+#my-playlist {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 20px;
+}
+
+#my-playlist p {
+  color: var(--hover-black);
+}
+
+.my-playlist-btn {
+  font-size: 15px;
+  padding: 7px;
+  border-radius: 25px;
+  width: 250px;
+  margin: 5px;
+  cursor: pointer;
+}
+
+.playlist-p-tag {
+  font-size: 20px;
+  margin: 20px;
 }
 
 /* 
@@ -234,7 +354,7 @@ nav {
 */
 
 footer {
-  background-color: black;
+  background-color: rgba(0, 0, 0, 0.8);
   width: 100%;
   height: 80px;
 }
@@ -247,12 +367,11 @@ footer {
   bottom: 0;
   flex-direction: column;
   gap: 5px;
-  color: white;
+  color: var(--text-color);
 }
 
 #songProgressBar {
   width: 70%;
-  color: blue;
   cursor: pointer;
 }
 
@@ -287,4 +406,69 @@ footer {
   align-items: center;
   position: absolute;
   right: 15%;
+}
+
+/* ****************************** TOGGLE BUTTON *************************** */
+
+/* The switch - the box around the slider */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+input:checked + .slider {
+  background-color: #2196f3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196f3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
 }

@@ -1,6 +1,5 @@
-// import { musicJSONfetchName, songSearch } from "./song search.js";
-
 const genreArray = ["All", "hip hop", "pop", "worship"];
+let playlistObj = {};
 const audioEle = new Audio();
 
 const bottomBackwardEle = document.getElementById("bottom-backward");
@@ -12,6 +11,84 @@ const topSearchEle = document.getElementById("top-search");
 const topBtnSearchEle = document.getElementById("top-btn-search");
 const songListEle = document.getElementById("song-list");
 songListEle.innerText = "";
+const myProgressBar = document.getElementById("songProgressBar");
+const playlistInputEle = document.getElementById("playlist-create");
+const currentPlaylistEle = document.getElementById("current-playlist");
+const myPlaylistEle = document.getElementById("my-playlist");
+
+document.getElementById("playlist-create-btn").addEventListener("click", () => {
+  let playlistName = playlistInputEle.value;
+  playlistObj[playlistName] = [];
+  playlistInputEle.value = "";
+
+  myPlaylistEle.innerText = "";
+
+  const playlistPtagEle = document.createElement("p");
+  playlistPtagEle.textContent = "Your Playlist: ";
+  playlistPtagEle.classList.add("playlist-p-tag");
+  myPlaylistEle.appendChild(playlistPtagEle);
+
+  Object.keys(playlistObj).forEach((playlist) => {
+    const myPlaylistBtnEle = document.createElement("button");
+    myPlaylistBtnEle.classList.add("my-playlist-btn");
+    myPlaylistBtnEle.textContent = playlist;
+    myPlaylistEle.appendChild(myPlaylistBtnEle);
+
+    myPlaylistBtnEle.addEventListener("click", () => {
+      currentPlaylistEle.innerText = "";
+      const currentPlaylistPtag = document.createElement("p");
+      currentPlaylistPtag.textContent = "Current Playlist";
+      currentPlaylistEle.appendChild(currentPlaylistPtag);
+
+      for (let i = 0; i < playlistObj[playlist].length; i++) {
+        const data = playlistObj[playlist][i];
+        const currentPlaylistBtnEle = document.createElement("button");
+        currentPlaylistBtnEle.textContent = data[0]["songName"];
+
+        currentPlaylistEle.appendChild(currentPlaylistBtnEle);
+
+        currentPlaylistBtnEle.addEventListener("click", () => {
+          songPlay(data[0]["songPath"]);
+          musicDisplay(data);
+          const totalSec = data[0]["duration"];
+
+          masterPlay.classList.remove("fa-play-circle");
+          masterPlay.classList.add("fa-pause-circle");
+          musicGif.style.opacity = 1;
+          musicGifPtag.textContent = data[0]["songName"];
+          bottomDurationEle.textContent =
+            Math.floor(totalSec / 60) + (totalSec % 60) / 100;
+
+          // **************************** PROGRESS BAR *******************************
+
+          audioEle.addEventListener("timeupdate", () => {
+            let progress = parseInt(
+              (audioEle.currentTime / audioEle.duration) * 100
+            );
+            myProgressBar.value = progress;
+
+            bottomDurationEle.textContent =
+              Math.floor((totalSec - audioEle.currentTime) / 60) +
+              ":" +
+              ((totalSec - audioEle.currentTime) % 60).toFixed(0);
+          });
+
+          myProgressBar.addEventListener("change", () => {
+            audioEle.currentTime =
+              (myProgressBar.value * audioEle.duration) / 100;
+          });
+        });
+      }
+    });
+  });
+});
+
+function getOption() {
+  const selectElement = document.getElementById("genre-select");
+  musicJSONfetch(selectElement.value);
+}
+
+// *************************** MUSIC JSON FETCH *******************************
 
 async function musicJSONfetch(genreArrayDisplay) {
   try {
@@ -26,6 +103,8 @@ async function musicJSONfetch(genreArrayDisplay) {
     console.error(error);
   }
 }
+
+// ***************************** SONG SEARCH **********************************
 
 async function musicJSONfetchName(name) {
   try {
@@ -45,12 +124,13 @@ function songSearch(data, name) {
   genreArray.forEach((genre) => {
     if (genre !== "All") {
       for (let i = 0; i < data[genre].length; i++) {
-        if (data[genre][i]["songName"].toLowerCase() === name.trim()) {
-          songListEle.innerText = "";
+        if (
+          data[genre][i]["songName"].toLowerCase() === name.trim() ||
+          data[genre][i]["artistName"].toLowerCase() === name.trim()
+        ) {
           const songDataEle = document.createElement("div");
           songDataEle.classList.add("song-data");
 
-          songDataEle.style.backgroundColor = "blue";
           songDataEle.style.margin = "10px";
 
           const songNameEle = document.createElement("p");
@@ -75,6 +155,24 @@ function songSearch(data, name) {
             musicGifPtag.textContent = data[genre][i]["songName"];
             bottomDurationEle.textContent =
               Math.floor(totalSec / 60) + (totalSec % 60) / 100;
+
+            // **************************** PROGRESS BAR *******************************
+
+            audioEle.addEventListener("timeupdate", () => {
+              let progress = parseInt(
+                (audioEle.currentTime / audioEle.duration) * 100
+              );
+              myProgressBar.value = progress;
+              bottomDurationEle.textContent =
+                Math.floor((totalSec - audioEle.currentTime) / 60) +
+                ":" +
+                ((totalSec - audioEle.currentTime) % 60).toFixed(0);
+            });
+
+            myProgressBar.addEventListener("change", () => {
+              audioEle.currentTime =
+                (myProgressBar.value * audioEle.duration) / 100;
+            });
           });
 
           const songDurationleft = document.createElement("p");
@@ -101,6 +199,8 @@ function songSearch(data, name) {
   });
 }
 
+// ******************************* SONG PLAY ********************************
+
 function songPlay(path) {
   audioEle.src = path;
   if (audioEle.paused || audioEle.currentTime <= 0) {
@@ -109,10 +209,6 @@ function songPlay(path) {
     audioEle.pause();
     audioEle.play();
   }
-}
-
-if (audioEle.currentTime === 0) {
-  audioEle.pause();
 }
 
 // **************************** BOTTOM BTN *******************************
@@ -132,18 +228,6 @@ masterPlay.addEventListener("click", () => {
   }
 });
 
-// **************************** PROGRESS BAR *******************************
-const myProgressBar = document.getElementById("songProgressBar");
-
-audioEle.addEventListener("timeupdate", () => {
-  let progress = parseInt((audioEle.currentTime / audioEle.duration) * 100);
-  myProgressBar.value = progress;
-});
-
-myProgressBar.addEventListener("change", () => {
-  audioEle.currentTime = (myProgressBar.value * audioEle.duration) / 100;
-});
-
 // **************************** ARRAY DISPLAY *******************************
 function genreArrayDisplay(genreSelected) {
   const selectGenreEle = document.getElementById("genre-select");
@@ -158,6 +242,8 @@ function genreArrayDisplay(genreSelected) {
   musicJSONfetch(genreSelected);
 }
 
+// ********************* MUSIC COVER AND DETAILS DISPLAY **********************
+
 function musicDisplay(data) {
   const songCoverEle = document.getElementById("song-cover");
   songCoverEle.innerText = "";
@@ -165,6 +251,8 @@ function musicDisplay(data) {
   songNameEle.innerText = "";
   const artistNameEle = document.getElementById("artist-name");
   artistNameEle.innerText = "";
+  const addToPlaylistEle = document.getElementById("add-to-playlist-btn");
+  addToPlaylistEle.innerText = "";
 
   const songCoverImg = document.createElement("img");
   songCoverImg.src = data["songCover"];
@@ -175,17 +263,31 @@ function musicDisplay(data) {
   const artistNamePtag = document.createElement("p");
   artistNamePtag.textContent = data["artistName"];
 
+  const addToPlaylistBtn = document.createElement("button");
+  addToPlaylistBtn.textContent = "Add To Playlist";
+
+  addToPlaylistBtn.addEventListener("click", () => {
+    const addPlaylistName = prompt("Enter the playlist name: ");
+    for (let i = 0; i < Object.keys(playlistObj).length; i++) {
+      if (addPlaylistName === Object.keys(playlistObj)[i]) {
+        playlistObj[Object.keys(playlistObj)[i]].push([data]);
+      }
+    }
+  });
+
   songCoverEle.appendChild(songCoverImg);
   songNameEle.appendChild(songNamePtag);
   artistNameEle.appendChild(artistNamePtag);
+  addToPlaylistEle.appendChild(addToPlaylistBtn);
 }
+
+// *************************** SONG DATA DISPLAY ******************************
 
 function dataDisplay(data, genre) {
   for (let i = 0; i < data[genre].length; i++) {
     const songDataEle = document.createElement("div");
     songDataEle.classList.add("song-data");
 
-    songDataEle.style.backgroundColor = "blue";
     songDataEle.style.margin = "10px";
 
     const songNameEle = document.createElement("p");
@@ -210,6 +312,24 @@ function dataDisplay(data, genre) {
       musicGifPtag.textContent = data[genre][i]["songName"];
       bottomDurationEle.textContent =
         Math.floor(totalSec / 60) + (totalSec % 60) / 100;
+
+      // **************************** PROGRESS BAR *******************************
+
+      audioEle.addEventListener("timeupdate", () => {
+        let progress = parseInt(
+          (audioEle.currentTime / audioEle.duration) * 100
+        );
+        myProgressBar.value = progress;
+
+        bottomDurationEle.textContent =
+          Math.floor((totalSec - audioEle.currentTime) / 60) +
+          ":" +
+          ((totalSec - audioEle.currentTime) % 60).toFixed(0);
+      });
+
+      myProgressBar.addEventListener("change", () => {
+        audioEle.currentTime = (myProgressBar.value * audioEle.duration) / 100;
+      });
     });
 
     const songDurationleft = document.createElement("p");
@@ -246,16 +366,10 @@ function main(data, genreSelected) {
   }
 
   topBtnSearchEle.addEventListener("click", () => {
+    songListEle.innerText = "";
     if (genreArray.includes(topSearchEle.value.toLowerCase())) {
       genreArrayDisplay(topSearchEle.value.toLowerCase());
     } else {
-      // genreArray.forEach((genreSelected) => {
-      //   for (let i = 0; i < data[genre].length; i++) {
-      //     if (genreSelected === data[genre][i]["songName"]) {
-      //       musicJSONfetchName();
-      //     }
-      //   }
-      // });
       musicJSONfetchName(topSearchEle.value.toLowerCase());
     }
 
@@ -263,28 +377,30 @@ function main(data, genreSelected) {
   });
 }
 
-genreArrayDisplay("All");
+// --body-color: antiquewhite;
+// --main-bg-color-white: white;
+// --border-hover-grey: grey;
+// --hover-black: black;
+// --background-div: rgba(94, 245, 142, 0.7);
+// --create-btn: rgba(4, 63, 22, 0.7);
 
-function getOption() {
-  const selectElement = document.getElementById("genre-select");
-  musicJSONfetch(selectElement.value);
+function toggleTheme(obj) {
+  var r = document.querySelector(":root");
+  if (obj.checked) {
+    r.style.setProperty("--body-color", "antiquewhite");
+    r.style.setProperty("--main-bg-color-white", "white");
+    r.style.setProperty("--border-hover-grey", "grey");
+    r.style.setProperty("--hover-black", "white");
+    r.style.setProperty("--background-div", "rgb(17, 41, 90)");
+    r.style.setProperty("--create-btn", "rgba(4, 63, 22, 0.7)");
+  } else {
+    r.style.setProperty("--body-color", "antiquewhite");
+    r.style.setProperty("--main-bg-color-white", "white");
+    r.style.setProperty("--border-hover-grey", "grey");
+    r.style.setProperty("-hover-black", "black");
+    r.style.setProperty("--background-div", "rgba(94, 245, 142, 0.7)");
+    r.style.setProperty("--create-btn", "rgba(4, 63, 22, 0.7)");
+  }
 }
 
-// bottomBackwardEle.addEventListener("click", () => {
-//   if (i - 1 >= 0) {
-//     // songPlay(data[genre][i - 1]["songPath"]);
-//     i++;
-//     console.log("backward");
-//   } else {
-//     // songPlay(data[genreArray[i]][genre.length - 1]["songPath"]);
-//   }
-// });
-
-// bottomForwardEle.addEventListener("click", () => {
-//   if (i - 1 > -1) {
-//     songPlay(data[genre][i + 1]["songPath"]);
-//     console.log("forward");
-//   } else {
-//     songPlay(data[genreArray[i]][genre.length - 1]["songPath"]);
-//   }
-// });
+genreArrayDisplay("All");
